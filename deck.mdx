@@ -1,0 +1,467 @@
+import { future, highlight, notes, book, prism } from '@mdx-deck/themes'
+
+import cetus from './assets/chaos.jpg';
+import webstorm from './assets/webstorm.gif';
+import stackview from './assets/stackview.png';
+import keymap from './assets/keymap.png';
+import cleancode from './assets/cleancode.jpg';
+
+export const theme = {
+  ...highlight,
+  ...notes,
+  ...book,
+  ...prism,
+  styles: {
+   root: {
+    textAlign: 'left'
+   },
+   pre: {
+    textAlign: 'left'
+   } 
+  }
+}
+
+import { Invert, Image } from 'mdx-deck'
+
+import { CodeSurfer } from 'code-surfer';
+import { nightOwl } from '@code-surfer/themes';
+
+<Header>
+
+### _Maintainable_ React
+
+</Header>
+
+<Footer>
+
+[@juntao.qiu](https://icodeit.com.au)
+
+</Footer>
+
+# Maintainable React
+
+by @JuntaoQiu
+
+---
+
+<Image
+  src={cetus}
+  style={{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'deeppink',
+    fontSize: '4rem',
+  }}>
+
+# What is clean code?
+
+</Image>
+
+---
+
+<div style={{
+  fontSize: '2rem',
+  color: 'gray',
+  fontStyle: 'italic',
+  textAlign: 'left'
+  }}>
+  <p>Any one can write code that a computer can understand.<br/>
+  Good programmers write code that humans can understand. — Martin Fowler</p>
+</div>
+
+
+---
+
+# Unclean code / _code smell_
+
+---
+
+<Steps>
+
+- Long methond / funciton
+- Long props list
+- Divergent Change
+- Shotgun Surgery
+- Data Clumps
+- Speculative Generality (yagni)
+
+</Steps>
+
+---
+
+<CodeSurfer theme={nightOwl}>
+
+```jsx showNumbers 2:13
+const OrderContainer = ({
+  testID,
+  orderData,
+  basketError,
+  addCoupon,
+  voucherSelected,
+  validationErrors,
+  clearErrors,
+  removeLine,
+  editLine,
+  hideOrderButton,
+  hideEditButton,
+  loading,
+}: OrderContainerProps)
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer theme={nightOwl}>
+
+```jsx showNumbers 3,5:10
+const { t } = useTranslation('order')
+
+const serviceText = serviceMethod === 'Pickup' ? t('PickUp') : t('Deliver')
+
+const storeNameOrDeliveryAddress =
+  serviceMethod === 'Pickup'
+      ? selectedStore && selectedStore.media.name
+      : selectedDeliveryAddress === undefined || '' || !selectedDeliveryAddress.displayAddress
+      ? t('DeliveryAddressNotAvailable')
+      : selectedDeliveryAddress.displayAddress
+```
+
+</CodeSurfer>
+
+---
+
+# Testability
+
+---
+
+<CodeSurfer theme={nightOwl}>
+
+```jsx showNumbers
+const mockUseLocation = jest.fn().mockImplementation(() => ({ state: {} }))
+
+jest.mock('@reach/router', () => ({
+  ...jest.requireActual<{}>('@reach/router'),
+  navigate: jest.fn(),
+  useLocation: mockUseLocation,
+}))
+
+const mockShowAlert = jest.fn()
+
+jest.mock('@company/hooks-and-hocs', () => ({
+  ...jest.requireActual<{}>('@company/hooks-and-hocs'),
+  useSdkAvailable: jest.fn().mockImplementation(() => ({
+    found: true,
+  })),
+  useAlert: jest.fn().mockImplementation(() => ({
+    showAlert: mockShowAlert,
+  })),
+  
+  //...
+}))
+```
+
+</CodeSurfer>
+
+---
+
+# Clean code
+
+---
+
+<Steps>
+
+- Simple, short and concise
+- Meaningful names
+- Easy to test
+- Following general design principles 
+
+</Steps>
+
+---
+
+<Image src={cleancode} />
+
+---
+
+# General principles
+
+- Using domain language
+- Separation of concerns (data modelling)
+- Single Responsibility
+- Composable API
+
+---
+
+<Image src={webstorm} />
+
+---
+
+# Key of Refactoring
+
+- Make sure tests are solid and correct
+- Small steps first (move, rename)
+- Think composable when coding, but don't over think it
+- Practice makes progress - IDE shortcuts
+
+---
+
+<Image src={keymap} />
+
+---
+
+<Invert>
+
+# Show me the code
+
+</Invert>
+
+---
+
+# Avatar component
+
+---
+
+<CodeSurfer theme={nightOwl}>
+
+```jsx showNumbers 1,6:10
+import Tooltip from "@atlaskit/tooltip";
+
+const Avatar = (props) => {
+  if (props.name) {
+    return (
+      <Tooltip content={props.name}>
+        <Circle>
+          <img src={props.url} />
+        </Circle>
+      </Tooltip>
+    );
+  }
+  return (
+    <Circle>
+      <img src={props.url} />
+    </Circle>
+  );
+};
+```
+
+```jsx showNumbers 6:10
+const Profile = () => {
+  const {name} = props;
+
+  return (
+    <div>
+      <Avatar
+        tooltipPosition="top"
+        tooltipBackgroundColor="blue"
+        tooltipColor="whitesmoke"
+      />;    
+    </div>
+  )
+}
+```
+
+```jsx showNumbers 6:11
+const Profile = () => {
+  const {name} = props;
+
+  return (
+    <div>
+      <Avatar
+        tooltipProps={{
+          position: "top",
+          backgroundColor: "blue",
+          color: "whitesmoke",
+        }}
+      />;
+    </div>
+  )
+}
+```
+
+```jsx showNumbers
+const Avatar = (props) => (
+  <Circle>
+    <img src={props.url} title={props.name || ""} />
+  </Circle>
+);
+```
+
+</CodeSurfer>
+
+--- 
+
+<CodeSurfer theme={nightOwl}>
+
+```jsx showNumbers 2,5:8
+import Avatar from "@atlaskit/avatar";
+import Tooltip from "@atlaskit/tooltip";
+
+const MyAvatar = (props) => (
+  <Tooltip
+    content="Juntao Qiu"
+    position="top"
+    css={{ color: "whitesmoke", backgroundColor: "blue" }}
+  >
+    <Avatar
+      name="Juntao Qiu"
+      url="https://avatars.githubusercontent.com/u/122324"
+    />
+  </Tooltip>
+);
+```
+
+```jsx showNumbers 2,5
+import Avatar from "@atlaskit/avatar";
+import Tooltip from "@material-ui/core/Tooltip";
+
+const MyAvatar = (props) => (
+  <Tooltip title="Juntao Qiu" placement="top" classes={...}>
+    <Avatar
+      name="Juntao Qiu"
+      url="https://avatars.githubusercontent.com/u/122324"
+    />
+  </Tooltip>
+);
+```
+
+</CodeSurfer>
+
+---
+
+# Stackview
+
+---
+
+<Image src={stackview} />
+
+--- 
+
+<CodeSurfer theme={nightOwl}>
+
+```jsx showNumbers 1,8,15,18
+const Header = ({ showAccount }) => {
+  return (
+    <header>
+      <nav className="navigation">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/">About</a></li>
+          { showAccount && (<li><a href="/profile">Profile</a></li>) }
+        </ul>
+      </nav>
+    </header>
+  );
+};
+
+const StackView = ({ showAccount, children }) => {
+  return (
+    <div className="stack">
+      <Header showAccount={showAccount} />
+      <main>{children}</main>
+      <Footer />
+    </div>
+  );
+};
+
+export default StackView;
+```
+
+```jsx showNumbers 1,4
+const StackView = ({ showAccount, avatar, children }) => {
+  return (
+    <div className="stack">
+      <Header showAccount={showAccount} avatar={avatar} />
+      <main>{children}</main>
+      <Footer />
+    </div>
+  );
+};
+```
+
+
+```jsx showNumbers
+const StackView = ({ header, children }) => {
+  return (
+    <div className="stack">
+      {header}
+      <main>{children}</main>
+      <Footer />
+    </div>
+  );
+};
+```
+
+```jsx showNumbers 3,6
+const HomePage = () => {
+  const { isUserLoggedIn } = useAccount();
+  const header = <Header showAccount={isUserLoggedIn} />;
+
+  return (
+    <StackView header={header}>
+      <Content />
+    </StackView>
+  );
+};
+```
+
+```jsx showNumbers 4:5,8
+const HomePage = () => {
+  const {isUserLoggedIn} = useAccount()
+
+  const header = <Header showAccount={isUserLoggedIn} />
+  const footer = <Footer links={[...]} />
+
+  return (
+    <StackView header={header} footer={footer}>
+      <Content />
+    </StackView>
+  );
+}
+```
+
+```jsx  showNumbers 1,4:6
+const StackView = ({ header, children, footer }) => {
+  return (
+    <div className="stack">
+      {header}
+      <main>{children}</main>
+      {footer}
+    </div>
+  );
+};
+```
+
+</CodeSurfer>
+
+---
+
+# Summary
+
+<Steps>
+
+- Take small steps (Extract Variable/Function, etc.)
+- Make sure tests are solid and correct
+- Think composable when coding, but don't over think it
+- Practice makes progress - IDE shortcuts
+
+</Steps>
+
+---
+
+# Other References
+
+- [Clean code by Uncle Bob](https://blog.cleancoder.com/)
+- [Refactor by Martin](https://martinfowler.com/articles/refactoring-2nd-ed.html)
+- [Composition in React](https://javascript.plainenglish.io/did-someone-say-composition-c7843d898b2)
+- [React Clean Code](https://itnext.io/react-clean-code-f7b7946cb9d3)
+- [7 Tips for React Clean Code](https://itnext.io/7-react-clean-code-tips-you-should-know-846b8108fc46)
+
+---
+
+# Other References
+
+- [Jutao's Blogs](https://juntao-qiu.medium.com/)
+- [Juntao's Youtube Channel - Clean Code](https://www.youtube.com/channel/UCncUOcMo7oSiXRVhVH2lF1w)
+- [I Code It](https://icodeit.com.au/)
