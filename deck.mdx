@@ -62,6 +62,8 @@ by @JuntaoQiu
     flex: '1',
     textAlign: 'left'
   }}>
+    <h2>Developer | Author | Creator</h2>
+    <p><i>I help people write better code</i></p>
     <ul>
       <li><a href="https://juntao-qiu.medium.com/" target="_blank">Blogs</a></li>
       <li><a href="https://leanpub.com/u/juntao" target="_blank">Books</a></li>
@@ -108,12 +110,12 @@ by @JuntaoQiu
 
 <Steps>
 
-- Long methond / funciton
+- Long method / function
 - Long props list
 - Divergent Change
 - Shotgun Surgery
 - Data Clumps
-- Speculative Generality (yagni)
+- Speculative Generality (Yagni)
 
 </Steps>
 
@@ -121,7 +123,7 @@ by @JuntaoQiu
 
 <CodeSurfer theme={nightOwl}>
 
-```jsx showNumbers 2:13
+```jsx showNumbers 2:13 title="Long props list" 
 const OrderContainer = ({
   testID,
   orderData,
@@ -144,7 +146,7 @@ const OrderContainer = ({
 
 <CodeSurfer theme={nightOwl}>
 
-```jsx showNumbers 3,5:10
+```jsx showNumbers 3,5:10  title="Divergent Change" 
 const { t } = useTranslation('order')
 
 const serviceText = serviceMethod === 'Pickup' ? t('PickUp') : t('Deliver')
@@ -167,7 +169,7 @@ const storeNameOrDeliveryAddress =
 
 <CodeSurfer theme={nightOwl}>
 
-```jsx showNumbers
+```jsx showNumbers title="Too much mocks"
 const mockUseLocation = jest.fn().mockImplementation(() => ({ state: {} }))
 
 jest.mock('@reach/router', () => ({
@@ -238,45 +240,45 @@ jest.mock('@company/hooks-and-hocs', () => ({
 
 <CodeSurfer theme={nightOwl}>
 
-```jsx showNumbers 4
+```jsx showNumbers 4 title="Static heading"
 import React from 'react';
 
 const Title = () => 
   <h1>Title | This is a title</h1>
 ```
 
-```jsx showNumbers 3:4
+```jsx showNumbers 3:4 title="Accepts a title"
 import React from 'react';
 
 const Title = ({title}: {title: string}) => 
   <h1>Title | {title}</h1>
 ```
 
-```jsx showNumbers 6,8
+```jsx showNumbers 6,8 title="Accepts a title, and a transform"
 const Title = ({
   title,
-  transformer
+  transform
 }: {
   title: string;
-  transformer: (s: string) => string;
+  transform: (s: string) => string;
 }) => {
-  return <h1>Title ｜ ${transformer(title)}</h1>;
+  return <h1>Title ｜ ${transform(title)}</h1>;
 };
 ```
 
-```jsx showNumbers 6,8
+```jsx showNumbers 6,8 title="Accepts a title, and a render function"
 const Title = ({
   title,
   render
 }: {
   title: string;
-  render: (s: string) => React.ReactNode;
+  render: (s: string) => JSX.Element;
 }) => {
   return <>{render(title)}</>;
 };
 ```
 
-```jsx showNumbers 3:6
+```jsx showNumbers 3:6 title="Accepts a title, and a render function"
 <Title
   title="this is a string"
   render={(s) => {
@@ -286,31 +288,31 @@ const Title = ({
 />
 ```
 
-```jsx showNumbers 6,8
+```jsx showNumbers 6,8 title="Accepts a title, and render function"
 const Title = ({
   title,
   render
 }: {
   title: string;
-  render: (s: string) => React.ReactNode;
+  render: (s: string) => JSX.Element;
 }) => {
   return <>{render(title)}</>;
 };
 ```
 
-```jsx showNumbers 6,8
+```jsx showNumbers 6,8 title="We can also change render to children"
 const Title = ({
   title,
   children
 }: {
   title: string;
-  children: (s: string) => React.ReactNode;
+  children: (s: string) => JSX.Element;
 }) => {
   return <>{children(title)}</>;
 };
 ```
 
-```jsx showNumbers 2:4
+```jsx showNumbers 2:4 title="So we can pass in a function as child"
 <Title title="this is a string">
   {(s) => {
     return <h3>{s.toUpperCase()}</h3>;
@@ -319,7 +321,7 @@ const Title = ({
 ```
 
 
-```jsx showNumbers 2:11
+```jsx showNumbers 2:11 title="Or even a complicated one like:"
 <Title title="this is a string">
   {(s) => {
     const titlify = (str: string) =>
@@ -350,13 +352,13 @@ const Title = ({
 
 ---
 
-# Avatar component
+# Avatar component 
 
 ---
 
 <CodeSurfer theme={nightOwl}>
 
-```jsx showNumbers 1,6:10
+```jsx showNumbers 1,6:10 title="Avatar has a name in the props list"
 import Tooltip from "@atlaskit/tooltip";
 
 const Avatar = (props) => {
@@ -377,8 +379,8 @@ const Avatar = (props) => {
 };
 ```
 
-```jsx showNumbers 6:10
-const Profile = () => {
+```jsx showNumbers 6:10 title="Avatar has a name in the props list"
+const Profile = (props) => {
   const {name} = props;
 
   return (
@@ -393,8 +395,8 @@ const Profile = () => {
 }
 ```
 
-```jsx showNumbers 6:11
-const Profile = () => {
+```jsx showNumbers 6:11 title="Avatar has a name in the props list"
+const Profile = (props) => {
   const {name} = props;
 
   return (
@@ -411,7 +413,7 @@ const Profile = () => {
 }
 ```
 
-```jsx showNumbers
+```jsx showNumbers title="Remove name from props list"
 const Avatar = (props) => (
   <Circle>
     <img src={props.url} title={props.name || ""} />
@@ -425,7 +427,7 @@ const Avatar = (props) => (
 
 <CodeSurfer theme={nightOwl}>
 
-```jsx showNumbers 2,5:8
+```jsx showNumbers 2,5:8 title="And compose it with other component"
 import Avatar from "@atlaskit/avatar";
 import Tooltip from "@atlaskit/tooltip";
 
@@ -443,7 +445,7 @@ const MyAvatar = (props) => (
 );
 ```
 
-```jsx showNumbers 2,5
+```jsx showNumbers 2,5 title="And compose it with other component"
 import Avatar from "@atlaskit/avatar";
 import Tooltip from "@material-ui/core/Tooltip";
 
@@ -471,7 +473,7 @@ const MyAvatar = (props) => (
 
 <CodeSurfer theme={nightOwl}>
 
-```jsx showNumbers 1,8,15,18
+```jsx showNumbers 1,8,15,18  title="Stackview is a generic component...sort of"
 const Header = ({ showAccount }) => {
   return (
     <header>
@@ -499,7 +501,7 @@ const StackView = ({ showAccount, children }) => {
 export default StackView;
 ```
 
-```jsx showNumbers 1,4
+```jsx showNumbers 1,4 title="And as one more prop avatar is added?"
 const StackView = ({ showAccount, avatar, children }) => {
   return (
     <div className="stack">
@@ -512,7 +514,7 @@ const StackView = ({ showAccount, avatar, children }) => {
 ```
 
 
-```jsx showNumbers
+```jsx showNumbers title="We can move the whole header out"
 const StackView = ({ header, children }) => {
   return (
     <div className="stack">
@@ -524,7 +526,7 @@ const StackView = ({ header, children }) => {
 };
 ```
 
-```jsx showNumbers 3,6
+```jsx showNumbers 3,6 title="We can move the whole header out"
 const HomePage = () => {
   const { isUserLoggedIn } = useAccount();
   const header = <Header showAccount={isUserLoggedIn} />;
@@ -537,7 +539,7 @@ const HomePage = () => {
 };
 ```
 
-```jsx showNumbers 4:5,8
+```jsx showNumbers 4:5,8  title="As well as the footer"
 const HomePage = () => {
   const {isUserLoggedIn} = useAccount()
 
@@ -552,7 +554,7 @@ const HomePage = () => {
 }
 ```
 
-```jsx  showNumbers 1,4:6
+```jsx  showNumbers 1,4:6 title="StackView is a generic component"
 const StackView = ({ header, children, footer }) => {
   return (
     <div className="stack">
