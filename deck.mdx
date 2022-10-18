@@ -6,6 +6,8 @@ import stackview from './assets/stackview.png';
 import keymap from './assets/keymap.png';
 import cleancode from './assets/cleancode.jpg';
 
+import avatar from './assets/juntao.avatar.png';
+
 export const theme = {
   ...highlight,
   ...notes,
@@ -41,6 +43,33 @@ import { nightOwl } from '@code-surfer/themes';
 # Maintainable React
 
 by @JuntaoQiu
+
+---
+
+<section style={{
+  display: 'flex',
+  alignItems: 'center',
+  justifyConctent: 'center',
+  gap: '2rem'
+}}>
+  <div style={{
+    flex: '1'
+  }}>
+    <img style={{ width: '100%' }} src={avatar} />
+  </div>
+
+  <div style={{
+    flex: '1',
+    textAlign: 'left'
+  }}>
+    <ul>
+      <li><a href="https://juntao-qiu.medium.com/" target="_blank">Blogs</a></li>
+      <li><a href="https://leanpub.com/u/juntao" target="_blank">Books</a></li>
+      <li><a href="https://www.youtube.com/channel/UCncUOcMo7oSiXRVhVH2lF1w"  target="_blank">Youtube Channel</a></li>
+      <li><a href="https://github.com/abruzzi"  target="_blank">Github</a></li>
+    </ul>
+  </div>
+</section>
 
 ---
 
@@ -204,6 +233,108 @@ jest.mock('@company/hooks-and-hocs', () => ({
 - Small steps first (move, rename)
 - Think composable when coding, but don't over think it
 - Practice makes progress - IDE shortcuts
+
+---
+
+<CodeSurfer theme={nightOwl}>
+
+```jsx showNumbers 4
+import React from 'react';
+
+const Title = () => 
+  <h1>Title | This is a title</h1>
+```
+
+```jsx showNumbers 3:4
+import React from 'react';
+
+const Title = ({title}: {title: string}) => 
+  <h1>Title | {title}</h1>
+```
+
+```jsx showNumbers 6,8
+const Title = ({
+  title,
+  transformer
+}: {
+  title: string;
+  transformer: (s: string) => string;
+}) => {
+  return <h1>Title ｜ ${transformer(title)}</h1>;
+};
+```
+
+```jsx showNumbers 6,8
+const Title = ({
+  title,
+  render
+}: {
+  title: string;
+  render: (s: string) => React.ReactNode;
+}) => {
+  return <>{render(title)}</>;
+};
+```
+
+```jsx showNumbers 3:6
+<Title
+  title="this is a string"
+  render={(s) => {
+    const transformed = s.toUpperCase();
+    return <h3>{transformed}</h3>;
+  }}
+/>
+```
+
+```jsx showNumbers 6,8
+const Title = ({
+  title,
+  render
+}: {
+  title: string;
+  render: (s: string) => React.ReactNode;
+}) => {
+  return <>{render(title)}</>;
+};
+```
+
+```jsx showNumbers 6,8
+const Title = ({
+  title,
+  children
+}: {
+  title: string;
+  children: (s: string) => React.ReactNode;
+}) => {
+  return <>{children(title)}</>;
+};
+```
+
+```jsx showNumbers 2:4
+<Title title="this is a string">
+  {(s) => {
+    return <h3>{s.toUpperCase()}</h3>;
+  }}
+</Title>
+```
+
+
+```jsx showNumbers 2:11
+<Title title="this is a string">
+  {(s) => {
+    const titlify = (str: string) =>
+      str
+        .split(/\s+/)
+        .map((w) => w[0].toUpperCase() + w.substring(1, w.length))
+        .join(" ");
+
+    const transformed = titlify(s);
+    return <h3>{transformed}</h3>;
+  }}
+</Title>
+```
+
+</CodeSurfer>
 
 ---
 
