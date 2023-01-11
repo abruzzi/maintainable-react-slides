@@ -1,12 +1,12 @@
-import { future, highlight, notes, book, prism } from '@mdx-deck/themes'
+import { future, highlight, notes, book, prism } from "@mdx-deck/themes";
 
-import cetus from './assets/chaos.jpg';
-import webstorm from './assets/webstorm.gif';
-import stackview from './assets/stackview.png';
-import keymap from './assets/keymap.png';
-import cleancode from './assets/cleancode.jpg';
+import cetus from "./assets/chaos.jpg";
+import webstorm from "./assets/webstorm.gif";
+import stackview from "./assets/stackview.png";
+import keymap from "./assets/keymap.png";
+import cleancode from "./assets/cleancode.jpg";
 
-import avatar from './assets/juntao.avatar.png';
+import avatar from "./assets/juntao.avatar.png";
 
 export const theme = {
   ...highlight,
@@ -14,21 +14,21 @@ export const theme = {
   ...book,
   ...prism,
   styles: {
-   root: {
-    textAlign: 'left'
-   },
-   pre: {
-    textAlign: 'left'
-   } 
-  }
-}
+    root: {
+      textAlign: "left",
+    },
+    pre: {
+      textAlign: "left",
+    },
+  },
+};
 
-import { Invert, Image } from 'mdx-deck'
+import { Invert, Image } from "mdx-deck";
 
-import { CodeSurfer } from 'code-surfer';
-import { nightOwl } from '@code-surfer/themes';
+import { CodeSurfer } from "code-surfer";
+import { nightOwl } from "@code-surfer/themes";
 
-<Header>
+<!-- <Header>
 
 ### _Maintainable_ React
 
@@ -36,13 +36,279 @@ import { nightOwl } from '@code-surfer/themes';
 
 <Footer>
 
-[@juntao.qiu](https://icodeit.com.au)
+[@JuntaoQiu](https://icodeit.com.au)
 
-</Footer>
+</Footer> -->
 
 # Maintainable React
 
 by @JuntaoQiu
+
+---
+
+<CodeSurfer theme={nightOwl}>
+
+```jsx showNumbers
+export const convert = (str: string) => {
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  return str
+    .split("")
+    .map((str: string) => {
+      const index = letters.indexOf(str);
+      return index !== -1 ? letters[(index + 13) % letters.length] : str;
+    })
+    .join("");
+};
+```
+
+```jsx showNumbers 2
+export const convert = (str: string) => {
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  return str
+    .split("")
+    .map((str: string) => {
+      const index = letters.indexOf(str);
+      return index !== -1 ? letters[(index + 13) % letters.length] : str;
+    })
+    .join("");
+};
+```
+
+```jsx showNumbers 1
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+export const convert = (str: string) => {
+  return str
+    .split("")
+    .map((str: string) => {
+      const index = letters.indexOf(str);
+      return index !== -1 ? letters[(index + 13) % letters.length] : str;
+    })
+    .join("");
+};
+```
+
+```jsx showNumbers 5,10
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+export const convert = (str: string) => {
+  return str
+    .split("")
+    .map((str: string) => {
+      const index = letters.indexOf(str);
+      return index !== -1 ? letters[(index + 13) % letters.length] : str;
+    })
+    .join("");
+};
+```
+
+```jsx showNumbers 2,6,11
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const separator = "";
+
+export const convert = (str: string) => {
+  return str
+    .split(separator)
+    .map((str: string) => {
+      const index = letters.indexOf(str);
+      return index !== -1 ? letters[(index + 13) % letters.length] : str;
+    })
+    .join(separator);
+};
+```
+
+```jsx showNumbers 7:10
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const separator = "";
+
+export const convert = (str: string) => {
+  return str
+    .split(separator)
+    .map((str: string) => {
+      const index = letters.indexOf(str);
+      return index !== -1 ? letters[(index + 13) % letters.length] : str;
+    })
+    .join(separator);
+};
+```
+
+```jsx showNumbers 4:7,12
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const separator = "";
+
+const transform = (str: string) => {
+  const index = letters.indexOf(str);
+  return index !== -1 ? letters[(index + 13) % letters.length] : str;
+};
+
+export const convert = (str: string) => {
+  return str.split(separator).map(transform).join(separator);
+};
+```
+
+```jsx showNumbers 9:14
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const separator = "";
+
+const transform = (str: string) => {
+  const index = letters.indexOf(str);
+  return index !== -1 ? letters[(index + 13) % letters.length] : str;
+};
+
+export const convert = (str: string) => {
+  return str.split(separator).map(transform).join(separator);
+};
+```
+
+```jsx showNumbers 9:10
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const separator = "";
+
+const transform = (str: string) => {
+  const index = letters.indexOf(str);
+  return index !== -1 ? letters[(index + 13) % letters.length] : str;
+};
+
+export const convert = (str: string) =>
+  str.split(separator).map(transform).join(separator);
+```
+
+```jsx showNumbers 6
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const separator = "";
+
+const transform = (str: string) => {
+  const index = letters.indexOf(str);
+  return index !== -1 ? letters[(index + 13) % letters.length] : str;
+};
+
+export const convert = (str: string) =>
+  str.split(separator).map(transform).join(separator);
+```
+
+```jsx showNumbers 3,7
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const separator = "";
+const shift = 13;
+
+const transform = (str: string) => {
+  const index = letters.indexOf(str);
+  return index !== -1 ? letters[(index + shift) % letters.length] : str;
+};
+
+export const convert = (str: string) =>
+  str.split(separator).map(transform).join(separator);
+```
+
+```jsx showNumbers 10
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const separator = "";
+const shift = 13;
+
+const transform = (str: string) => {
+  const index = letters.indexOf(str);
+  return index !== -1 ? letters[(index + shift) % letters.length] : str;
+};
+
+export const convert = (str: string) =>
+  str.split(separator).map(transform).join(separator);
+```
+
+```jsx showNumbers 10
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const separator = "";
+const shift = 13;
+
+const transform = (str: string) => {
+  const index = letters.indexOf(str);
+  return index !== -1 ? letters[(index + shift) % letters.length] : str;
+};
+
+export const rot13 = (str: string) =>
+  str.split(separator).map(transform).join(separator);
+```
+
+```jsx showNumbers 6,7
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const separator = "";
+const shift = 13;
+
+const transform = (str: string) => {
+  const index = letters.indexOf(str);
+  return index !== -1 ? letters[(index + shift) % letters.length] : str;
+};
+
+export const rot13 = (str: string) =>
+  str.split(separator).map(transform).join(separator);
+```
+
+```jsx showNumbers 5,8
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const separator = "";
+const shift = 13;
+
+const isValidLetter = (str: string) => letters.indexOf(str) !== -1;
+
+const transform = (str: string) =>
+  isValidLetter(str)
+    ? letters[(letters.indexOf(str) + shift) % letters.length]
+    : str;
+
+export const rot13 = (str: string) =>
+  str.split(separator).map(transform).join(separator);
+```
+
+```jsx showNumbers 9
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const separator = "";
+const shift = 13;
+
+const isValidLetter = (str: string) => letters.indexOf(str) !== -1;
+
+const transform = (str: string) =>
+  isValidLetter(str)
+    ? letters[(letters.indexOf(str) + shift) % letters.length]
+    : str;
+
+export const rot13 = (str: string) =>
+  str.split(separator).map(transform).join(separator);
+```
+
+```jsx showNumbers 7:8,10
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const separator = "";
+const shift = 13;
+
+const isValidLetter = (str: string) => letters.indexOf(str) !== -1;
+
+const getLetter = (str: string) =>
+  letters[(letters.indexOf(str) + shift) % letters.length];
+
+const transform = (str: string) => (isValidLetter(str) ? getLetter(str) : str);
+
+export const rot13 = (str: string) =>
+  str.split(separator).map(transform).join(separator);
+```
+
+```jsx showNumbers
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const separator = "";
+const shift = 13;
+
+const isValidLetter = (str: string) => letters.indexOf(str) !== -1;
+
+const getLetter = (str: string) =>
+  letters[(letters.indexOf(str) + shift) % letters.length];
+
+const transform = (str: string) => (isValidLetter(str) ? getLetter(str) : str);
+
+export const rot13 = (str: string) =>
+  str.split(separator).map(transform).join(separator);
+```
+
+</CodeSurfer>
 
 ---
 
@@ -91,16 +357,20 @@ by @JuntaoQiu
 
 ---
 
-<div style={{
-  fontSize: '2rem',
-  color: 'gray',
-  fontStyle: 'italic',
-  textAlign: 'left'
-  }}>
-  <p>Any one can write code that a computer can understand.<br/>
-  Good programmers write code that humans can understand. — Martin Fowler</p>
+<div
+  style={{
+    fontSize: "2rem",
+    color: "gray",
+    fontStyle: "italic",
+    textAlign: "left",
+  }}
+>
+  <p>
+    Any one can write code that a computer can understand.
+    <br />
+    Good programmers write code that humans can understand. — Martin Fowler
+  </p>
 </div>
-
 
 ---
 
@@ -123,7 +393,7 @@ by @JuntaoQiu
 
 <CodeSurfer theme={nightOwl}>
 
-```jsx showNumbers 2:13 title="Long props list" 
+```jsx showNumbers 2:13 title="Long props list"
 const OrderContainer = ({
   testID,
   orderData,
@@ -137,7 +407,7 @@ const OrderContainer = ({
   hideOrderButton,
   hideEditButton,
   loading,
-}: OrderContainerProps)
+}: OrderContainerProps);
 ```
 
 </CodeSurfer>
@@ -146,17 +416,19 @@ const OrderContainer = ({
 
 <CodeSurfer theme={nightOwl}>
 
-```jsx showNumbers 3,5:10  title="Divergent Change" 
-const { t } = useTranslation('order')
+```jsx showNumbers 3,5:10  title="Divergent Change"
+const { t } = useTranslation("order");
 
-const serviceText = serviceMethod === 'Pickup' ? t('PickUp') : t('Deliver')
+const serviceText = serviceMethod === "Pickup" ? t("PickUp") : t("Deliver");
 
 const storeNameOrDeliveryAddress =
-  serviceMethod === 'Pickup'
-      ? selectedStore && selectedStore.media.name
-      : selectedDeliveryAddress === undefined || '' || !selectedDeliveryAddress.displayAddress
-      ? t('DeliveryAddressNotAvailable')
-      : selectedDeliveryAddress.displayAddress
+  serviceMethod === "Pickup"
+    ? selectedStore && selectedStore.media.name
+    : selectedDeliveryAddress === undefined ||
+      "" ||
+      !selectedDeliveryAddress.displayAddress
+    ? t("DeliveryAddressNotAvailable")
+    : selectedDeliveryAddress.displayAddress;
 ```
 
 </CodeSurfer>
@@ -170,27 +442,27 @@ const storeNameOrDeliveryAddress =
 <CodeSurfer theme={nightOwl}>
 
 ```jsx showNumbers title="Too much mocks"
-const mockUseLocation = jest.fn().mockImplementation(() => ({ state: {} }))
+const mockUseLocation = jest.fn().mockImplementation(() => ({ state: {} }));
 
-jest.mock('@reach/router', () => ({
-  ...jest.requireActual<{}>('@reach/router'),
+jest.mock("@reach/router", () => ({
+  ...(jest.requireActual < {} > "@reach/router"),
   navigate: jest.fn(),
   useLocation: mockUseLocation,
-}))
+}));
 
-const mockShowAlert = jest.fn()
+const mockShowAlert = jest.fn();
 
-jest.mock('@company/hooks-and-hocs', () => ({
-  ...jest.requireActual<{}>('@company/hooks-and-hocs'),
+jest.mock("@company/hooks-and-hocs", () => ({
+  ...(jest.requireActual < {} > "@company/hooks-and-hocs"),
   useSdkAvailable: jest.fn().mockImplementation(() => ({
     found: true,
   })),
   useAlert: jest.fn().mockImplementation(() => ({
     showAlert: mockShowAlert,
   })),
-  
+
   //...
-}))
+}));
 ```
 
 </CodeSurfer>
@@ -206,7 +478,7 @@ jest.mock('@company/hooks-and-hocs', () => ({
 - Simple, short and concise
 - Meaningful names
 - Easy to test
-- Following general design principles 
+- Following general design principles
 
 </Steps>
 
@@ -241,26 +513,24 @@ jest.mock('@company/hooks-and-hocs', () => ({
 <CodeSurfer theme={nightOwl}>
 
 ```jsx showNumbers 4 title="Static heading"
-import React from 'react';
+import React from "react";
 
-const Title = () => 
-  <h1>Title | This is a title</h1>
+const Title = () => <h1>Title | This is a title</h1>;
 ```
 
 ```jsx showNumbers 3:4 title="Accepts a title"
-import React from 'react';
+import React from "react";
 
-const Title = ({title}: {title: string}) => 
-  <h1>Title | {title}</h1>
+const Title = ({ title }: { title: string }) => <h1>Title | {title}</h1>;
 ```
 
 ```jsx showNumbers 6,8 title="Accepts a title, and a transform"
 const Title = ({
   title,
-  transform
+  transform,
 }: {
-  title: string;
-  transform: (s: string) => string;
+  title: string,
+  transform: (s: string) => string,
 }) => {
   return <h1>Title ｜ ${transform(title)}</h1>;
 };
@@ -269,10 +539,10 @@ const Title = ({
 ```jsx showNumbers 6,8 title="Accepts a title, and a render function"
 const Title = ({
   title,
-  render
+  render,
 }: {
-  title: string;
-  render: (s: string) => JSX.Element;
+  title: string,
+  render: (s: string) => JSX.Element,
 }) => {
   return <>{render(title)}</>;
 };
@@ -291,10 +561,10 @@ const Title = ({
 ```jsx showNumbers 6,8 title="Accepts a title, and render function"
 const Title = ({
   title,
-  render
+  render,
 }: {
-  title: string;
-  render: (s: string) => JSX.Element;
+  title: string,
+  render: (s: string) => JSX.Element,
 }) => {
   return <>{render(title)}</>;
 };
@@ -303,10 +573,10 @@ const Title = ({
 ```jsx showNumbers 6,8 title="We can also change render to children"
 const Title = ({
   title,
-  children
+  children,
 }: {
-  title: string;
-  children: (s: string) => JSX.Element;
+  title: string,
+  children: (s: string) => JSX.Element,
 }) => {
   return <>{children(title)}</>;
 };
@@ -319,7 +589,6 @@ const Title = ({
   }}
 </Title>
 ```
-
 
 ```jsx showNumbers 2:11 title="Or even a complicated one like:"
 <Title title="this is a string">
@@ -352,7 +621,7 @@ const Title = ({
 
 ---
 
-# Avatar component 
+# Avatar component
 
 ---
 
@@ -381,7 +650,7 @@ const Avatar = (props) => {
 
 ```jsx showNumbers 6:10 title="Avatar has a name in the props list"
 const Profile = (props) => {
-  const {name} = props;
+  const { name } = props;
 
   return (
     <div>
@@ -389,15 +658,16 @@ const Profile = (props) => {
         tooltipPosition="top"
         tooltipBackgroundColor="blue"
         tooltipColor="whitesmoke"
-      />;    
+      />
+      ;
     </div>
-  )
-}
+  );
+};
 ```
 
 ```jsx showNumbers 6:11 title="Avatar has a name in the props list"
 const Profile = (props) => {
-  const {name} = props;
+  const { name } = props;
 
   return (
     <div>
@@ -407,10 +677,11 @@ const Profile = (props) => {
           backgroundColor: "blue",
           color: "whitesmoke",
         }}
-      />;
+      />
+      ;
     </div>
-  )
-}
+  );
+};
 ```
 
 ```jsx showNumbers title="Remove name from props list"
@@ -423,7 +694,7 @@ const Avatar = (props) => (
 
 </CodeSurfer>
 
---- 
+---
 
 <CodeSurfer theme={nightOwl}>
 
@@ -469,9 +740,40 @@ const MyAvatar = (props) => (
 
 <Image src={stackview} />
 
---- 
+---
 
 <CodeSurfer theme={nightOwl}>
+
+```jsx title="Stackview is a generic component...sort of"
+const Header = () => {
+  return (
+    <header>
+      <nav className="navigation">
+        <ul>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/">About</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  );
+};
+
+const StackView = ({ showAccount, children }) => {
+  return (
+    <div className="stack">
+      <Header />
+      <main>{children}</main>
+      <Footer />
+    </div>
+  );
+};
+
+export default StackView;
+```
 
 ```jsx showNumbers 1,8,15,18  title="Stackview is a generic component...sort of"
 const Header = ({ showAccount }) => {
@@ -479,9 +781,17 @@ const Header = ({ showAccount }) => {
     <header>
       <nav className="navigation">
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/">About</a></li>
-          { showAccount && (<li><a href="/profile">Profile</a></li>) }
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/">About</a>
+          </li>
+          {showAccount && (
+            <li>
+              <a href="/profile">Profile</a>
+            </li>
+          )}
         </ul>
       </nav>
     </header>
@@ -512,7 +822,6 @@ const StackView = ({ showAccount, avatar, children }) => {
   );
 };
 ```
-
 
 ```jsx showNumbers title="We can move the whole header out"
 const StackView = ({ header, children }) => {
@@ -554,7 +863,7 @@ const HomePage = () => {
 }
 ```
 
-```jsx  showNumbers 1,4:6 title="StackView is a generic component"
+```jsx showNumbers 1,4:6 title="StackView is a generic component"
 const StackView = ({ header, children, footer }) => {
   return (
     <div className="stack">
