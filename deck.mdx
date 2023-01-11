@@ -762,7 +762,7 @@ const Header = () => {
   );
 };
 
-const StackView = ({ showAccount, children }) => {
+const StackView = ({ children }) => {
   return (
     <div className="stack">
       <Header />
@@ -775,7 +775,7 @@ const StackView = ({ showAccount, children }) => {
 export default StackView;
 ```
 
-```jsx showNumbers 1,8,15,18  title="Stackview is a generic component...sort of"
+```jsx showNumbers 12-16,24,26  title="Stackview is a generic component...sort of"
 const Header = ({ showAccount }) => {
   return (
     <header>
